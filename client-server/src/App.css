@@ -1,0 +1,67 @@
+.App {
+  min-height: 100vh;
+}
+
+.app-shell {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 56px 0 80px;
+}
+
+/* CABEÇALHO */
+
+.app-header {
+  text-align: center;
+  margin-bottom: 42px;
+}
+
+.app-kicker {
+  display: inline-block;
+
+  margin-bottom: 10px;
+  padding: 7px 13px;
+
+  border: 1px solid #e0e3f2;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.75);
+
+  color: #6366f1;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.app-header h1 {
+  margin: 0;
+
+  color: #171a2b;
+
+  font-family: 'Playfair Display', Georgia, serif;
+
+  font-size: clamp(38px, 6vw, 58px);
+  line-height: 1.05;
+}
+
+.app-header p {
+  max-width: 620px;
+
+  margin: 14px auto 0;
+
+  color: #73788c;
+
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 700px) {
+  .app-shell {
+    width: min(100% - 24px, 1180px);
+    padding-top: 32px;
+  }
+}

@@ -1,0 +1,130 @@
+.post-create {
+  max-width: 760px;
+
+  margin: 0 auto 46px;
+
+  padding: 30px;
+
+  border: 1px solid rgba(224, 227, 242, 0.9);
+  border-radius: 22px;
+
+  background: rgba(255, 255, 255, 0.88);
+
+  box-shadow:
+    0 18px 50px rgba(30, 35, 70, 0.08);
+
+  backdrop-filter: blur(12px);
+}
+
+.post-create h1 {
+  margin: 0 0 22px;
+
+  color: #202334;
+
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.post-create form {
+  display: flex;
+
+  align-items: end;
+
+  gap: 14px;
+}
+
+.post-create .form {
+  flex: 1;
+  margin: 0;
+}
+
+.post-create label {
+  display: block;
+
+  margin: 0 0 8px;
+
+  color: #565b70;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.post-create .field {
+  width: 100%;
+  height: 46px;
+
+  margin: 0;
+  padding: 0 15px;
+
+  border: 1px solid #dfe2ed;
+  border-radius: 12px;
+
+  outline: none;
+
+  background: #fafbfe;
+
+  color: #202334;
+
+  transition: 0.2s ease;
+}
+
+.post-create .field:focus {
+  border-color: #6366f1;
+
+  background: white;
+
+  box-shadow:
+    0 0 0 4px rgba(99, 102, 241, 0.10);
+}
+
+.post-create .button {
+  height: 46px;
+
+  padding: 0 22px;
+
+  border: 0;
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #7c3aed
+    );
+
+  color: white;
+
+  font-weight: 700;
+
+  box-shadow:
+    0 8px 20px rgba(99, 102, 241, 0.22);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.post-create .button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 25px rgba(99, 102, 241, 0.28);
+}
+
+@media (max-width: 600px) {
+
+  .post-create {
+    padding: 22px;
+  }
+
+  .post-create form {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+  .post-create .button {
+    width: 100%;
+  }
+
+}

@@ -1,4 +1,4 @@
 node_modules/
-client/build/
-client/coverage/
+client-server/build/
+client-server/coverage/
 npm-debug.log*

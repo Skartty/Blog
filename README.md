@@ -6,7 +6,7 @@ React, Node.js, Express, JavaScript com ES Modules e `fetch`. Cada serviço guar
 
 | Serviço | Pasta | Porta |
 | --- | --- | --- |
-| Client | `client/` | 3000 |
+| client-server | `client-server/` | 3000 |
 | Posts | `posts/` | 4000 |
 | Comments | `coments/` | 4001 |
 | Query | `query/` | 4002 |
@@ -16,15 +16,16 @@ React, Node.js, Express, JavaScript com ES Modules e `fetch`. Cada serviço guar
 ## Fluxo de criação de post
 
 ```text
-Client → Posts → PostCreated → Event Bus → Query
+client-server → Posts → PostCreated → Event Bus → Query
 ```
+
 
 `POST :4000/posts` recebe `{ "title": "Título" }`. Posts gera o ID, salva em memória e publica o evento em `POST :4005/events`.
 
 ## Fluxo de comentário
 
 ```text
-Client → Comments → CommentCreated → Event Bus → Moderation
+client-server → Comments → CommentCreated → Event Bus → Moderation
        → CommentModerated → Event Bus → Comments
        → CommentUpdated → Event Bus → Query
 ```
@@ -75,10 +76,10 @@ Essa consulta não executa moderação: a decisão continua passando exclusivame
 | `moderation/index.js` | Regras, decisão e publicação de `CommentModerated`. |
 | `query/index.js` | `const posts = {}`, modelo de leitura e tratamento de `PostCreated`, `CommentCreated` e `CommentUpdated`. |
 | `event-bus/index.js` | Distribuição com `Promise.allSettled`, portas dos consumidores e registro de falhas. |
-| `client/src/App.js` | Leitura do Query e callbacks para atualizar a lista após criar posts ou aprovar comentários. |
-| `client/src/PostCreate/PostCreate.js` | Escrita em Posts. |
-| `client/src/CommentCreate/CommentCreate.js` | Escrita em Comments, consulta de status e feedback de moderação. |
-| `client/src/PostList/PostList.js` e `client/src/CommentList/CommentList.js` | Posts do Query e lista exclusiva de comentários aprovados. |
+| `client-server/src/App.js` | Leitura do Query e callbacks para atualizar a lista após criar posts ou aprovar comentários. |
+| `client-server/src/PostCreate/PostCreate.js` | Escrita em Posts. |
+| `client-server/src/CommentCreate/CommentCreate.js` | Escrita em Comments, consulta de status e feedback de moderação. |
+| `client-server/src/PostList/PostList.js` e `client-server/src/CommentList/CommentList.js` | Posts do Query e lista exclusiva de comentários aprovados. |
 
 Query aceita `CommentUpdated` antes de `CommentCreated`: guarda o resultado final e evita duplicar ou voltar o comentário para `pending` se a criação chegar depois.
 
@@ -102,7 +103,7 @@ Posts offline + Query online + Comments online
 
 O post já conhecido continua disponível em Query. Comments não consulta Posts para criar comentários; a moderação continua pelo Event Bus. Uma entrega para 4000 falha e aparece no console, mas `Promise.allSettled` permite entregar aos consumidores online. Cada entrega tem limite de 10 segundos para não aguardar indefinidamente um consumidor sem resposta.
 
-**Lista pública:** Client → `GET :4002/posts`. **Escrita:** Client → Posts ou Comments. **Status do envio:** Client → Comments. As respostas de criação aguardam a publicação dos eventos; a decisão pode já estar disponível quando o frontend recebe o ID.
+**Lista pública:** client-server → `GET :4002/posts`. **Escrita:** client-server → Posts ou Comments. **Status do envio:** client-server → Comments. As respostas de criação aguardam a publicação dos eventos; a decisão pode já estar disponível quando o frontend recebe o ID.
 
 Dados se perdem ao reiniciar o serviço que os guarda. Eventos enviados durante uma parada não são recuperados; não há banco, replay ou fila persistente.
 
@@ -115,7 +116,7 @@ npm install
 npm start
 ```
 
-Ordem sugerida, partindo de `blog/`: `event-bus/`, `posts/`, `coments/`, `query/`, `moderation/`, `client/`. Inicie todos antes de criar conteúdo. Os backends usam `node index.js`; nenhum precisa de nodemon global.
+Ordem sugerida, partindo de `blog/`: `event-bus/`, `posts/`, `coments/`, `query/`, `moderation/`, `client-server/`. Inicie todos antes de criar conteúdo. Os backends usam `node index.js`; nenhum precisa de nodemon global.
 
 Abra [http://localhost:3000](http://localhost:3000). Para alterar um backend, encerre e execute `npm start` novamente.
 
